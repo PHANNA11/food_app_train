@@ -14,7 +14,7 @@ class ShoppingCardScreen extends StatelessWidget {
     return GetBuilder<ShoppingCardController>(builder: (context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Shopping card'),
+          title: Text('shopping_card'.tr),
         ),
         body: ListView.builder(
           itemCount: shoppingCard.products.length,

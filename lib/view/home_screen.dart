@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/controller/shopping_card_controller.dart';
 import 'package:food_app/view/detail_screen.dart';
@@ -5,6 +6,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:food_app/view/shopping_card_screen.dart';
 import 'package:get/get.dart';
 import '../model/product_model.dart';
+import '../translate/translate_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -17,12 +19,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final shoppingCard = Get.put(ShoppingCardController());
+  SwitchLanguageController controlller = Get.put(SwitchLanguageController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ShoppingCardController>(
         init: shoppingCard,
         builder: (context) {
           return Scaffold(
+            drawer: Drawer(
+                child: SafeArea(
+              child: SizedBox(
+                child: Column(
+                  children: [
+                    GetBuilder<SwitchLanguageController>(builder: (context) {
+                      return ListTile(
+                        title: Text('English'),
+                        trailing: CupertinoSwitch(
+                          onChanged: (value) {
+                            controlller.switchLanguage(value);
+                            var localeEng = const Locale('en', 'US');
+                            var localeKh = const Locale('KH', 'KH');
+                            Get.updateLocale(value ? localeEng : localeKh);
+                          },
+                          value: controlller.english.value,
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            )),
             appBar: AppBar(
               centerTitle: true,
               title: Text(widget.title),
