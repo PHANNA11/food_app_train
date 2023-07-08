@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                       child: Text(
                         pro.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
