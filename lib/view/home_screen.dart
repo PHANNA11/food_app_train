@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/controller/shopping_controller.dart';
+import 'package:food_app/language/view/language_screen.dart';
 import 'package:food_app/view/detail_screen.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:food_app/view/shopping_screen.dart';
@@ -30,14 +31,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: badges.Badge(
                   showBadge: shoppingCard.products.isEmpty ? false : true,
                   badgeContent: Text(shoppingCard.products.length.toString()),
-                  child: Icon(
+                  child: const Icon(
                     Icons.shopping_cart,
                     size: 30,
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                  onPressed: () => Get.to((LanguageScreen())),
+                  icon: Icon(
+                    Icons.settings,
+                    size: 30,
+                  )),
+            ),
+            const SizedBox(
               width: 20,
             ),
           ],

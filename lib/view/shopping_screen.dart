@@ -15,12 +15,40 @@ class ShoppingScreen extends StatelessWidget {
     return GetBuilder<ShoppingCardController>(builder: (contexts) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Shopping Card'),
+          title: const Text('Shopping Card'),
         ),
         body: ListView.builder(
           itemCount: shoppingCard.products.length,
           itemBuilder: (context, index) =>
               productItemList(shoppingCard.products[index]),
+        ),
+        bottomSheet: GestureDetector(
+          onTap: () {},
+          child: Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Text(
+                  'Checkout',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '\$ 12.00',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
+                )
+              ],
+            ),
+          ),
         ),
       );
     });
@@ -52,67 +80,74 @@ class ShoppingScreen extends StatelessWidget {
                             image: NetworkImage(pro.image)))),
               ),
               Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      //  mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    //  mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              pro.name,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Text(
+                              '\$${pro.price.toStringAsFixed(2)}',
+                              // ignore: prefer_const_constructors
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red),
+                            )
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                        flex: 4,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                pro.name,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                              GestureDetector(
+                                onTap: () {},
+                                child: const CircleAvatar(
+                                  maxRadius: 18,
+                                  child: Icon(Icons.remove),
+                                ),
                               ),
-                              Text(
-                                '\$${pro.price.toStringAsFixed(2)}',
-                                // ignore: prefer_const_constructors
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  pro.qty.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: const CircleAvatar(
+                                  maxRadius: 18,
+                                  child: Icon(Icons.add),
+                                ),
                               )
                             ],
                           ),
                         ),
-                        Flexible(
-                          flex: 4,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const CircleAvatar(
-                                  maxRadius: 18,
-                                  child: Icon(Icons.remove),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    pro.qty.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                                const CircleAvatar(
-                                  maxRadius: 18,
-                                  child: Icon(Icons.add),
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
